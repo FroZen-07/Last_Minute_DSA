@@ -9,11 +9,27 @@ class Solution:
         if not root:
             return None
         
-        tmp = root.left
-        root.left = root.right
-        root.right = tmp
+        q = collections.deque()
+        q.append(root)
 
-        self.invertTree(root.left)
-        self.invertTree(root.right)
-
+        while(q):
+            node = q.popleft()
+            if node.left:
+                q.append(node.left)
+            if node.right:
+                q.append(node.right)
+            
+            node.left, node.right = node.right, node.left
+        
         return root
+
+
+
+        # tmp = root.left
+        # root.left = root.right
+        # root.right = tmp
+
+        # self.invertTree(root.left)
+        # self.invertTree(root.right)
+
+        # return root
